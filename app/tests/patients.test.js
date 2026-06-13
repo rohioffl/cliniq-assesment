@@ -5,12 +5,17 @@ const request = require('supertest');
 const mockQuery = jest.fn();
 
 jest.mock('../src/db', () => ({
-  pool: { query: jest.fn().mockResolvedValue({ rows: [] }) },
+  pool: { query: jest.fn().mockResolvedValue({ rows: [] }), end: jest.fn() },
   query: mockQuery,
   testConnection: jest.fn().mockResolvedValue(true),
 }));
 
 const app = require('../src/index');
+
+afterAll(() => {
+  const { pool } = require('../src/db');
+  pool.end();
+});
 
 const PATIENT = { id: 1, name: 'John Doe', email: 'john@example.com', created_at: new Date().toISOString() };
 
