@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [main]
+    branches: ["master"]
   workflow_dispatch:  # Allow manual trigger from GitHub Actions UI
 
 env:
