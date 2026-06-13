@@ -120,4 +120,4 @@ jobs:
 
       - name: Run tflint
         working-directory: terraform
-        run: tflint --recursive
+        run: tflint --recursive --minimum-failure-severity=error

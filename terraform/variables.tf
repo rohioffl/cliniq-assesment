@@ -19,12 +19,6 @@ variable "region" {
   default     = "us-central1"
 }
 
-variable "environment" {
-  description = "Deployment environment (dev, staging, prod)"
-  type        = string
-  default     = "prod"
-}
-
 variable "image_tag" {
   description = "Docker image tag to deploy"
   type        = string
