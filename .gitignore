@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 *.env
-
+assesment.pdf
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -406,6 +406,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Node.js / project specific
+app/coverage/
+.env
+.env.local
+
+# Terraform
+*.tfvars
+!terraform.tfvars.example
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+.terraform.lock.hcl
 
 # VS Code files for those working on multiple tools
 .vscode/*
