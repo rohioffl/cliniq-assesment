@@ -28,36 +28,36 @@ module "iam" {
 }
 
 module "secret_manager" {
-  source          = "./modules/secret_manager"
-  project_id      = var.project_id
-  db_password     = module.cloud_sql.db_password
-  sa_email        = module.iam.cloudrun_sa_email
+  source      = "./modules/secret_manager"
+  project_id  = var.project_id
+  db_password = module.cloud_sql.db_password
+  sa_email    = module.iam.cloudrun_sa_email
 }
 
 module "cloud_sql" {
-  source              = "./modules/cloud_sql"
-  project_id          = var.project_id
-  region              = var.region
-  db_name             = var.db_name
-  db_user             = var.db_user
-  vpc_network_id      = module.vpc.network_id
-  depends_on          = [module.vpc]
+  source         = "./modules/cloud_sql"
+  project_id     = var.project_id
+  region         = var.region
+  db_name        = var.db_name
+  db_user        = var.db_user
+  vpc_network_id = module.vpc.network_id
+  depends_on     = [module.vpc]
 }
 
 module "cloud_run" {
-  source                   = "./modules/cloud_run"
-  project_id               = var.project_id
-  region                   = var.region
-  image                    = local.artifact_registry_image
-  sa_email                 = module.iam.cloudrun_sa_email
-  vpc_connector_id         = module.vpc.vpc_connector_id
-  db_host                  = module.cloud_sql.private_ip
-  db_name                  = var.db_name
-  db_user                  = var.db_user
-  db_password_secret_id    = module.secret_manager.db_password_secret_id
-  min_instance_count       = var.min_instance_count
-  max_instance_count       = var.max_instance_count
-  depends_on               = [module.cloud_sql, module.iam, module.secret_manager]
+  source                = "./modules/cloud_run"
+  project_id            = var.project_id
+  region                = var.region
+  image                 = local.artifact_registry_image
+  sa_email              = module.iam.cloudrun_sa_email
+  vpc_connector_id      = module.vpc.vpc_connector_id
+  db_host               = module.cloud_sql.private_ip
+  db_name               = var.db_name
+  db_user               = var.db_user
+  db_password_secret_id = module.secret_manager.db_password_secret_id
+  min_instance_count    = var.min_instance_count
+  max_instance_count    = var.max_instance_count
+  depends_on            = [module.cloud_sql, module.iam, module.secret_manager]
 }
 
 module "monitoring" {
